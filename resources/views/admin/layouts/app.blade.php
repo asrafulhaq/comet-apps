@@ -22,6 +22,10 @@
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css"/>
+ 
+		
+
 		
 		<!--[if lt IE 9]>
 			<script src="admin/assets/js/html5shiv.min.js"></script>
@@ -47,7 +51,7 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">Welcome Admin!</h3>
+								<h3 class="page-title">Welcome {{ Auth::guard('admin') -> user() -> name }}!</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item active">Dashboard</li>
 								</ul>
@@ -55,6 +59,8 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
+
+
 
 					@section('main-section')
                     @show 
@@ -80,9 +86,12 @@
 		<script src="{{ asset('admin/assets/plugins/raphael/raphael.min.js') }}"></script>    
 		<script src="{{ asset('admin/assets/plugins/morris/morris.min.js') }}"></script>  
 		<script src="{{ asset('admin/assets/js/chart.morris.js') }}"></script>
-		
+
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
+
 		<!-- Custom JS -->
 		<script  src="{{ asset('admin/assets/js/script.js') }}"></script>
+		<script  src="{{ asset('custom/admin.js') }}"></script>
 		
     </body>
 

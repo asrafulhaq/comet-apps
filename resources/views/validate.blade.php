@@ -15,3 +15,4 @@
 @if( Session::has('danger') )
 <p class="alert alert-danger">{{ Session::get('danger') }}<button class="close" data-dismiss="alert">&times;</button></p>
 @endif
+

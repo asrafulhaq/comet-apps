@@ -62,6 +62,24 @@
 
         });
 
+        // icon select 
+        $('button.show-icon').click(function(e){
+            e.preventDefault();
+
+            $('#select-icon').modal('show');
+            
+        });
+
+        // select iocn 
+        $('.select-icon-haq .preview-icon code').click(function(){
+
+            let icon_name = $(this).html();
+            $('.select-haq-icon-input').val(icon_name);
+            $('#select-icon').modal('hide');
+            
+
+        });
+
 
     });
 })(jQuery)

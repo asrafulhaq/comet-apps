@@ -19,4 +19,15 @@ class FrontendPageController extends Controller
         ]);
     }
 
+    /**
+     * Show Home Page 
+     */
+    public function showContactPage()
+    {
+        
+        return view('frontend.pages.contact');
+    }
+
+    
+
 }

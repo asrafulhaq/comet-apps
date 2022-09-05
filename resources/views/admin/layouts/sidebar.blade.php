@@ -25,12 +25,18 @@
 							</li>
 							@endif
 
+							@if( in_array( 'Counter', json_decode(Auth::guard('admin') -> user() -> role -> permissions ) ) )
+							<li> 
+								<a href="{{ route('counter.index') }}"><i class="fe fe-home"></i> <span>Counter</span></a>
+							</li>
+							@endif
+
 							@if( in_array( 'Portfolio', json_decode(Auth::guard('admin') -> user() -> role -> permissions ) ) )
 							<li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Portfolio</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><a href="invoice-report.html">Portfolio</a></li>
-									<li><a href="invoice-report.html">Category</a></li>
+									<li><a href="{{ route('portfolio-category.index') }}">Category</a></li>
 									<li><a href="invoice-report.html">Tags</a></li>
 								</ul>
 							</li>

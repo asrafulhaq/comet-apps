@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
 		
 		<link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}">
+		<link rel="stylesheet" href="{{ asset('admin/assets/icon/themify-icons.css') }}">
+
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">

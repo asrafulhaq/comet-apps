@@ -6,10 +6,12 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\FrontendPageController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\PortfolioCategoryController;
 
 
 
@@ -44,6 +46,8 @@ Route::group([ 'middleware' => 'admin' ], function(){
     Route::resource('/slider', SliderController::class);
     Route::resource('/testimonial', TestimonialController::class);
     Route::resource('/client', ClientController::class);
+    Route::resource('/counter', CounterController::class);
+    Route::resource('/portfolio-category', PortfolioCategoryController::class);
 
 
     
@@ -54,4 +58,5 @@ Route::group([ 'middleware' => 'admin' ], function(){
  * Frontend Routes  
  */
  Route::get('/', [ FrontendPageController::class, 'showHomePage' ]) -> name('home.page');
+ Route::get('/contact', [ FrontendPageController::class, 'showContactPage' ]) -> name('contact.page');
 

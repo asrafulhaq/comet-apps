@@ -80,6 +80,26 @@
 
         });
 
+        // port folio galllery 
+        $('#portfolio-gallery').change(function(e){
+            
+          const files = e.target.files;
+            
+          let gallery_ui = '';
+
+          for( let i = 0; i < files.length ; i++ ) {
+            const obj_url = URL.createObjectURL(files[i]);
+            gallery_ui += `<img src="${ obj_url }">`;
+          } 
+            
+          $('.port-gall').html(gallery_ui);
+
+
+        });  
+
+        // CK Editor 
+        CKEDITOR.replace('portfolio-desc');
+
 
     });
 })(jQuery)

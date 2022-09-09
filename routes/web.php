@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontendPageController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\PortfolioCategoryController;
@@ -48,6 +49,7 @@ Route::group([ 'middleware' => 'admin' ], function(){
     Route::resource('/client', ClientController::class);
     Route::resource('/counter', CounterController::class);
     Route::resource('/portfolio-category', PortfolioCategoryController::class);
+    Route::resource('/portfolio', PortfolioController::class);
 
 
     

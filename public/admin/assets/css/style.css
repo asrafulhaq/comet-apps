@@ -4149,3 +4149,17 @@ table.table-inbox tbody tr.checked {
 .btn-opt-area input {
 	margin-bottom :10px;
 }
+
+
+.port-gall {
+	display: flex;
+	flex-flow: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+.port-gall img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+}

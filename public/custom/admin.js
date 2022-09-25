@@ -20,6 +20,9 @@
         // our data tables
         $('.data-table-haq').DataTable();
 
+        // use select 2 
+        $('.comet-select-2').select2();
+
 
         // slider photo management 
         $('#slider-photo').change(function(e){
@@ -99,6 +102,47 @@
 
         // CK Editor 
         CKEDITOR.replace('portfolio-desc');
+
+
+
+        // post type selector 
+        $('#post-type-selector').change(function(){
+
+            const type = $(this).val();
+            
+            if( type == 'Standard' ){
+                $('.post-standard').show();
+                $('.post-gallery').hide();
+                $('.post-video').hide();
+                $('.post-audio').hide();
+                $('.post-quote').hide();
+            } else if( type == 'Gallery' ){
+                $('.post-standard').hide();
+                $('.post-gallery').show();
+                $('.post-video').hide();
+                $('.post-audio').hide();
+                $('.post-quote').hide();
+            }else if( type == 'Video' ){
+                $('.post-standard').hide();
+                $('.post-gallery').hide();
+                $('.post-video').show();
+                $('.post-quote').hide();
+                $('.post-audio').hide();
+            }else if( type == 'Audio' ){
+                $('.post-standard').hide();
+                $('.post-gallery').hide();
+                $('.post-video').hide();
+                $('.post-quote').hide();
+                $('.post-audio').show();
+            }else if( type == 'Quote' ){
+                $('.post-standard').hide();
+                $('.post-gallery').hide();
+                $('.post-video').hide();
+                $('.post-quote').show();
+                $('.post-audio').hide();
+            }
+
+        });
 
 
     });

@@ -6,8 +6,8 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h4 class="card-title">All Portfolio Categories</h4>
-                <a href="{{ route('admin.trash') }}" class="text-danger">Trash Categories <i class="fa fa-arrow-right"></i></a>
+                <h4 class="card-title">Post categories</h4>
+                <a href="{{ route('admin.trash') }}" class="text-danger">Trash categories <i class="fa fa-arrow-right"></i></a>
             </div>
             <div class="card-body">
                 @include('validate-main')
@@ -18,7 +18,6 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Slug</th>
-                                <th>Portfolios</th>
                                 <th>Created At</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -31,13 +30,6 @@
                                 <td>{{ $loop -> index + 1 }}</td>
                                 <td>{{ $item -> name }}</td>
                                 <td>{{ $item -> slug }}</td>
-                                <td>
-                                    <ul class="comet-list">
-                                        @foreach( $item -> portfolios as $port )
-                                            <li> <i class="fa fa-angle-right"></i> {{ $port -> title }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
                                 <td>{{ $item -> created_at -> diffforhumans() }}</td>
                                 <td>
                                     @if($item -> status )
@@ -72,13 +64,12 @@
             </div>
             <div class="card-body">
                 @include('validate')
-                <form action="{{ route('portfolio-category.store') }}" method="POST">
+                <form action="{{ route('post-category.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>name</label>
                         <input name="name" type="text" value="{{ old('name') }}" class="form-control">
-                    </div>
-                
+                    </div>               
 
                     
                 

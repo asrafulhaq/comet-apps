@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Models\Portfolio;
+use App\Models\Tag;
+use App\Models\Post;
 use Illuminate\Support\Str;
+use App\Models\Categorypost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
-class PortfolioController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +20,14 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolios = Portfolio::latest() -> get();
-        $categories = Category::latest() -> get();
-        return view('admin.pages.portfolio.index', [
-            'form_type'     => 'create',
-            'portfolios'    => $portfolios,
-            'categories'    =>  $categories
+        $posts = Post::latest() -> get();
+        $cats = Categorypost::latest() -> get();
+        $tags = Tag::latest() -> get();
+        return view('admin.pages.post.index', [
+            'form_type' => 'create',
+            'posts'     => $posts,
+            'cats'      => $cats,
+            'tags'      => $tags    
         ]);
     }
 
@@ -45,24 +49,26 @@ class PortfolioController extends Controller
      */
     public function store(Request $request)
     {
-       
-        // validation 
-        // $this -> validate($request, [
-        //     'name'      => ['required'],
-        //     'cat'      => ['required'],
-        //     'photo'      => ['required'],
-        // ]);
+        // validate
+        $this -> validate($request, [
+            'title'         => 'required|unique:posts',
+            'content'       => 'required',
+        ]); 
 
-        // image management 
-        if( $request -> hasFile('photo') ){
-            $img = $request -> file('photo');
-            $file_name = md5(time().rand()) .'.'. $img -> clientExtension();
+        // uplaod standard post 
+        if( $request -> hasFile('standard') ){
+            $img = $request -> file('standard');
+            $standard = md5(time().rand()) .'.'. $img -> clientExtension();
 
             $image = Image::make($img -> getRealPath());
-            $image -> save(storage_path('app/public/portfolios/' . $file_name) );
+            $image -> save(storage_path('app/public/posts/' . $standard) );
         }
 
-        // gallery manage 
+
+
+
+
+        // manage gallery post image 
         $gallery_files = [];
         if( $request -> hasFile('gallery') ){   
             $gallery = $request -> file('gallery');
@@ -70,46 +76,36 @@ class PortfolioController extends Controller
             foreach( $gallery as $gall ){
                 $gall_name = md5(time().rand()) .'.'. $gall -> clientExtension();
                 $image = Image::make($gall -> getRealPath());
-                $image -> save(storage_path('app/public/portfolios/' . $gall_name) );
+                $image -> save(storage_path('app/public/posts/' . $gall_name) );
                 array_push($gallery_files, $gall_name);
             }
 
 
         } 
 
-        // steps manage 
-        $steps = [];
-        if( count($request -> title) > 0 ){
-            for( $i = 0; $i < count($request -> title) ; $i++ ){
-                array_push($steps, [
-                    'title'     => $request -> title[$i],
-                    'desc'      => $request -> desc[$i]
-                ]);
-            }
 
-
-        }
-
+        // featured post management
+       $post_type = [
+            'post_type'     => $request -> type,
+            'standard'      => $standard ?? null,
+            'video'         => $request -> video,
+            'audio'         => $request -> audio,
+            'gallery'       => json_encode($gallery_files),
+        ];
 
         // store 
-        $portfolio = Portfolio::create([
-            'title'         => $request -> name,
-            'slug'          => Str::slug($request -> name),
-            'featured'      => $file_name,
-            'gallery'       => json_encode($gallery_files),
-            'desc'          => $request -> pdesc,
-            'steps'         => json_encode($steps),
-            'client'        => $request -> client,
-            'link'          => $request -> link,
-            'types'         => $request -> types,
-            'psd'           => $request -> psd,
+        $post = Post::create([
+            'admin_id'      => Auth::guard('admin') -> user() -> id,
+            'title'         => $request -> title,
+            'slug'          => Str::slug($request -> title),
+            'content'       => $request -> content,
+            'featured'      => json_encode($post_type)
         ]);
 
-        $portfolio -> category() -> attach($request -> cat);
-
-
-        // return back 
-        return back() -> with('success' , 'Portfolio Added successful');
+        $post -> category() -> attach($request -> cat);
+        $post -> tag() -> attach($request -> tag);
+        // return 
+        return back() -> with('success' , 'Post Category Added successful');
     }
 
     /**

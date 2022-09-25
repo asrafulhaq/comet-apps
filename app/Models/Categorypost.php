@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Portfolio extends Model
+class Categorypost extends Model
 {
     use HasFactory;
 
-    protected $guarded  = [];
+    protected $guarded = [];
 
 
-    public function category()
+    public function posts()
     {
-        return $this -> belongsToMany(Category::class);
+        return $this -> belongsToMany(Post::class);
     }
+
 
 }

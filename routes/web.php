@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ClientController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\PostcategoryController;
 use App\Http\Controllers\Admin\PortfolioCategoryController;
 
 
@@ -50,6 +53,9 @@ Route::group([ 'middleware' => 'admin' ], function(){
     Route::resource('/counter', CounterController::class);
     Route::resource('/portfolio-category', PortfolioCategoryController::class);
     Route::resource('/portfolio', PortfolioController::class);
+    Route::resource('/tag', TagController::class);
+    Route::resource('/post-category', PostcategoryController::class);
+    Route::resource('/post', PostController::class);
 
 
     
@@ -60,5 +66,7 @@ Route::group([ 'middleware' => 'admin' ], function(){
  * Frontend Routes  
  */
  Route::get('/', [ FrontendPageController::class, 'showHomePage' ]) -> name('home.page');
+ Route::get('/blog', [ FrontendPageController::class, 'showBlogPage' ]) -> name('blog.page');
  Route::get('/contact', [ FrontendPageController::class, 'showContactPage' ]) -> name('contact.page');
+ Route::get('/portfolio-single/{slug}', [ FrontendPageController::class, 'showSinglePortfolioPage' ]) -> name('portfolio.single.page');
 

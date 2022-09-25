@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('featured');
             $table->text('gallery') -> nullable();
             $table->string('client') -> nullable();
-            $table->string('date') -> nullable();
+            $table->string('psd') -> nullable();
             $table->string('link') -> nullable();
             $table->string('types') -> nullable();
             $table->text('desc') -> nullable();
